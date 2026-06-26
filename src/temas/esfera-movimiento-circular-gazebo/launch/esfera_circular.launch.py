@@ -17,6 +17,11 @@ def generate_launch_description():
                                         description='Periodo de la oscilación sinusoidal (s)')
     frecuencia_arg = DeclareLaunchArgument('frecuencia_publicacion', default_value='30.0',
                                            description='Frecuencia de publicación del nodo (Hz)')
+    # Motor de render. 'ogre2' (por defecto) es el estándar en Ubuntu con GPU.
+    # En WSL2 o sin aceleración gráfica, 'ogre' (Ogre 1.x) es mucho más ligero y
+    # evita que el render por software ahogue la física. Ver README, sección WSL2.
+    render_engine_arg = DeclareLaunchArgument('render_engine', default_value='ogre2',
+                                              description="Motor de render de Gazebo ('ogre2' o 'ogre')")
 
     paquete_share = FindPackageShare('esfera_circular_gazebo')
     ruta_mundo = PathJoinSubstitution([paquete_share, 'worlds', 'esfera_circular.sdf'])
@@ -30,7 +35,10 @@ def generate_launch_description():
             ])
         ),
         # -r: arranca la simulación automáticamente sin pulsar Play
-        launch_arguments={'gz_args': ['-r ', ruta_mundo]}.items(),
+        # --render-engine: elige el motor de render (ver render_engine_arg)
+        launch_arguments={'gz_args': [
+            '-r --render-engine ', LaunchConfiguration('render_engine'), ' ', ruta_mundo,
+        ]}.items(),
     )
 
     # Puente bidireccional: ROS 2 geometry_msgs/Twist ↔ Gazebo gz.msgs.Twist
@@ -64,6 +72,7 @@ def generate_launch_description():
         amplitud_arg,
         periodo_arg,
         frecuencia_arg,
+        render_engine_arg,
         gazebo,
         puente,
         nodo_velocidad,

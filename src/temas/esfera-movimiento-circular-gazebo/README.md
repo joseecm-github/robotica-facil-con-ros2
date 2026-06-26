@@ -68,6 +68,7 @@ ros2 launch esfera_circular_gazebo esfera_circular.launch.py
 | `amplitud_velocidad` | `0.35` m/s | Amplitud de la oscilación |
 | `periodo_velocidad` | `10.0` s | Periodo de la oscilación sinusoidal |
 | `frecuencia_publicacion` | `30.0` Hz | Frecuencia de publicación del nodo |
+| `render_engine` | `ogre2` | Motor de render de Gazebo (`ogre2` o `ogre`) |
 
 Ejemplo con radio mayor y velocidad más alta:
 
@@ -75,6 +76,34 @@ Ejemplo con radio mayor y velocidad más alta:
 ros2 launch esfera_circular_gazebo esfera_circular.launch.py \
   radio:=3.0 velocidad_base:=1.0 amplitud_velocidad:=0.5
 ```
+
+### Rendimiento en WSL2 (esfera "congelada")
+
+En WSL2, Gazebo suele caer a render por software (Ogre2 sobre `llvmpipe`). Como el
+servidor de física y la GUI corren en el mismo proceso, ese render pesado ahoga a la
+física: la simulación avanza a un factor de tiempo real cercano a cero y la esfera
+**parece congelada aunque el código es correcto** (el servidor solo, sin GUI, va a RTF 1.0).
+
+Solución: usar el motor de render ligero **Ogre 1**:
+
+```bash
+ros2 launch esfera_circular_gazebo esfera_circular.launch.py render_engine:=ogre
+```
+
+Si aun así va lento, desacopla servidor y GUI (la GUI lenta deja de frenar la física):
+
+```bash
+# Terminal 1 — servidor headless a tiempo real
+gz sim -s -r install/esfera_circular_gazebo/share/esfera_circular_gazebo/worlds/esfera_circular.sdf
+# Terminal 2 — GUI ligera
+gz sim -g --render-engine ogre
+# Terminal 3 — puente
+ros2 run ros_gz_bridge parameter_bridge "/model/esfera_circular/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist"
+# Terminal 4 — nodo
+ros2 run esfera_circular_gazebo nodo_velocidad_circular
+```
+
+En una Ubuntu nativa con GPU no hace falta nada de esto: el valor por defecto `ogre2` funciona bien.
 
 ## Resultado esperado
 
