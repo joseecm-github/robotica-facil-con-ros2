@@ -7,6 +7,9 @@ log/
 __pycache__/
 *.pyc
 
+# Claude Code worktrees (git repos anidados gestionados por el agente)
+.claude/worktrees/
+
 # Editores / SO
 .vscode/
 *.swp
