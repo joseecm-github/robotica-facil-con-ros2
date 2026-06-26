@@ -1,0 +1,13 @@
+# Generado por colcon al compilar el workspace (raíz del repo = raíz de ros2_ws)
+build/
+install/
+log/
+
+# Python
+__pycache__/
+*.pyc
+
+# Editores / SO
+.vscode/
+*.swp
+.DS_Store
