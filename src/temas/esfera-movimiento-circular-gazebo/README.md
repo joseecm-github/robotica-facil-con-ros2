@@ -8,7 +8,7 @@ Paquete ROS 2 que simula una esfera sobre un plano horizontal en Gazebo Jetty. L
 - **Gazebo:** Jetty (pareja oficial de Lyrical Luth según REP-2000)
 - **Sistema operativo:** Ubuntu Resolute 26.04
 
-> ⚠️ Este paquete se generó sobre Lyrical Luth + Gazebo Jetty. No se ha podido compilar en el entorno de desarrollo actual porque ROS 2 Lyrical Luth no está instalado en esa máquina. Las instrucciones de compilación y ejecución siguientes están pensadas para el entorno de referencia descrito arriba.
+> Compilado y verificado sobre ROS 2 Lyrical Luth + Gazebo Jetty (Ubuntu Resolute 26.04).
 
 ## Qué hace este paquete
 

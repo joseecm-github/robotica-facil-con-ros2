@@ -23,7 +23,6 @@ setup(
     maintainer_email='contacto@robotica-facil-con-ros2.es',
     description='Esfera con movimiento circular y velocidad variable en Gazebo Jetty.',
     license='Apache-2.0',
-    tests_require=['pytest'],
     entry_points={
         'console_scripts': [
             'nodo_velocidad_circular = esfera_circular_gazebo.nodo_velocidad_circular:main',
