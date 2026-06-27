@@ -7,8 +7,16 @@ log/
 __pycache__/
 *.pyc
 
-# Claude Code worktrees (git repos anidados gestionados por el agente)
-.claude/worktrees/
+# Tooling de generación de posts con Claude — NO se versiona en GitHub
+CLAUDE.md
+.claude/
+docs/
+templates/
+
+# Contenido del post de cada tema — NO se versiona en GitHub (solo el código sí)
+src/temas/*/post.xml
+src/temas/*/image-header-prompt.txt
+src/temas/*/pending-screenshots.md
 
 # Editores / SO
 .vscode/
