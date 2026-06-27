@@ -1,19 +1,20 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>esfera_circular_gazebo</name>
+  <name>random_objects_gazebo</name>
   <version>0.1.0</version>
   <description>
-    Esfera que realiza un movimiento circular con velocidad variable sobre un plano
-    horizontal en Gazebo Jetty (ROS 2 Lyrical Luth).
+    ROS 2 node that spawns three objects (a sphere, a cone and a box) at random
+    positions within a radius limit, using the Gazebo Jetty spawn service.
   </description>
   <maintainer email="contacto@robotica-facil-con-ros2.es">José Enrique Cabrera</maintainer>
   <license>Apache-2.0</license>
 
   <depend>rclpy</depend>
-  <depend>geometry_msgs</depend>
   <depend>ros_gz_sim</depend>
-  <depend>ros_gz_bridge</depend>
+  <!-- Python bindings for Gazebo, used to call the create service (gz.transport / gz.msgs) -->
+  <exec_depend>gz_transport_vendor</exec_depend>
+  <exec_depend>gz_msgs_vendor</exec_depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>

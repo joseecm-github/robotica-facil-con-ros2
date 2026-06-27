@@ -2,7 +2,7 @@ import os
 from glob import glob
 from setuptools import find_packages, setup
 
-package_name = 'esfera_circular_gazebo'
+package_name = 'random_objects_gazebo'
 
 setup(
     name=package_name,
@@ -21,11 +21,11 @@ setup(
     zip_safe=True,
     maintainer='José Enrique Cabrera',
     maintainer_email='contacto@robotica-facil-con-ros2.es',
-    description='Esfera con movimiento circular y velocidad variable en Gazebo Jetty.',
+    description='Spawn random objects in Gazebo Jetty from a ROS 2 node.',
     license='Apache-2.0',
     entry_points={
         'console_scripts': [
-            'nodo_velocidad_circular = esfera_circular_gazebo.nodo_velocidad_circular:main',
+            'spawn_objects_node = random_objects_gazebo.spawn_objects_node:main',
         ],
     },
 )
